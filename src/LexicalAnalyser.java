@@ -5,21 +5,19 @@ import java.util.Scanner;
 
 public class LexicalAnalyser {
 	
-	static String[] keywords ={"पूर्णांक","अक्षर","अगर","अन्यथा","जबतक","विराम","जारी","नामपत्र","बटन","डिब्बा","टिक","चुनाव"};
+	static String[] keywords ={"पूर्णांक","अक्षर","अगर","अन्यथाअगर","अन्यथा","जबतक","विराम","जारी","नामपत्र","बटन","डिब्बा","टिक","चुनाव"};
 			
 	
 	static void enterInST(String x){
 		
 	}
-	static String detect(String x){
+	static Token detect(String x,SyntaxTable SB){
 		
 		LanguageHelper lh= new LanguageHelper();
 		x=lh.devanagariToLatin(x);
 		String y=lh.latinToDevanagari(x);
-		int flag=0;
+		/*int flag=0;
 		for(String keyword:keywords){
-			keyword=lh.devanagariToLatin(keyword);
-			keyword= lh.latinToDevanagari(keyword);
 			if(y.equals(keyword)){
 				flag=1;
 				break;
@@ -29,21 +27,41 @@ public class LexicalAnalyser {
 		if(flag==0){
 			try{
 				Double val=Double.parseDouble(x);
-				return y+" is a number";
+				System.out.println( y+" is a number");
+				
 			}catch (Exception e){
 				if(y.equals("â‚¹")){
-					return y+" is a Loop variable";
+					System.out.println( y+" is a Loop variable");
 				}else{
-					return y+" is a variable";
+					System.out.println( y+" is a variable");
 				}
 				//enterInST(y);
 			}
 			
 		}else{
 			
-			return y+" is Keyword";
-		}
+			System.out.println( y+" is Keyword");
+		}*/
+		try{
+			int val=Integer.parseInt(x);
+			System.out.println( y+" is a integer");
+			return SB.getToken(val);
 
+			
+		}catch (Exception e){
+			try{
+				float val=Float.parseFloat(x);
+				System.out.println( y+" is a float");
+				return SB.getToken(val);
+			}catch (Exception e2){
+				System.out.println( y+" is a string");
+				return SB.getToken(y);
+
+					
+			}
+				
+		}
+		
 	}
 	public static void main(String args[]){
 		String s = "चुनाव";
@@ -53,7 +71,7 @@ public class LexicalAnalyser {
 		
 		try {
 			for (String x : s.split(" ")){
-				System.out.println(detect(x));
+				//System.out.println(detect(x));
 			}
 			
 			

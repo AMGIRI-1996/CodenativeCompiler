@@ -1,8 +1,5 @@
 import com.ibm.icu.text.Transliterator;
 
-/**
- * @author Tejas
- */
 
 public class LanguageHelper {
 
